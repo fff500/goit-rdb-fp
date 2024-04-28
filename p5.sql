@@ -1,0 +1,18 @@
+DROP FUNCTION IF EXISTS Count_diff;
+
+DELIMITER //
+
+CREATE FUNCTION Count_diff(year YEAR)
+RETURNS INT
+DETERMINISTIC 
+NO SQL
+BEGIN
+    DECLARE result INT;
+    SET result = TIMESTAMPDIFF(YEAR, MAKEDATE(Year, 1), CURDATE());
+    RETURN result;
+END //
+
+DELIMITER ;
+
+SELECT Count_diff(Year) as years_diff
+FROM cases;
